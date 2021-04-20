@@ -5,6 +5,6 @@ int main(void) {
     std::cout << "Soy Pablo" << std::endl;
     std::cout << "Hola xd\n"
               << "Pesao\n"
-              << "Doy pena chicos att hache";
+              << "NO DOY pena chicos :D att hache\n";
     return 0;
 }
