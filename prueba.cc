@@ -7,5 +7,6 @@ int main(void) {
               << "Pesao\n"
               << "NO DOY pena chicos :D att hache\n";
     std::cout << "FIS no me gusta\n";
+    std::cout << "me gusta como piensas\n";
     return 0;
 }
