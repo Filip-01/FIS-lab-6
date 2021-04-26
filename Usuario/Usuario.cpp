@@ -79,7 +79,13 @@ Usuario::WriteName(std::string new_name)  {
     }
     file_name_.close();
     remove("Usuarios.txt");
-    temp_file.close();
+    if (contador != 0)  {
+      
+    }
+    else {
+      temp_file << new_name << "\n";
+      temp_file.close();
+    }
     rename("Temp.txt", "Usuarios.txt");
 
   }
