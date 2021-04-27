@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])  {
 
     std::string passwd;
     std::cout << "Introduzca la contraseña.\n";
-    std:.cin >> passwd;
+    std::cin >> passwd;
   
     usuario.SetPasswd(passwd);
   
@@ -29,10 +29,10 @@ int main(int argc, char const *argv[])  {
     if (usuario.CheckUser(nombre))  {
       std::cout << "ok\n";
       if (usuario.CheckPasswd(passwd))  {
-        std::cout << "contraseña ok";
+        std::cout << "contraseña ok\n";
       }
       else {
-        std:.cout << "Contraseña no ok"
+        std::cout << "Contraseña no ok\n";
       }
     }
     else {
