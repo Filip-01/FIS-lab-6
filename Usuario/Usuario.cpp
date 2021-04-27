@@ -5,8 +5,10 @@ Usuario::Usuario()  {
 
 
 Usuario::~Usuario()  {
-  file_passwd_.close();
-  file_name_.close();
+  if (file_passwd_.is_open())
+    file_passwd_.close();
+  if (file_name_.is_open())
+    file_name_.close();
 }
 
 
