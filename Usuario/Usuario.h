@@ -19,7 +19,7 @@ class Usuario  {
   bool CheckPasswd(std::string passwd);
 
   void WriteName(std::string new_name);
-  void WritePasswd();
+  void WritePasswd(std::string new_passwd);
 
  private:
  std::string nombre_;
