@@ -98,6 +98,39 @@ Usuario::WriteName(std::string new_name)  {
 
 // La estructura en el fichero será del nombre del usuario seguido de un espacio y la contraseña en cada línea.
 void
-Usuario::WritePasswd()  {
+Usuario::WritePasswd(std::string new_passwd)  {
+  std::string passwd;
+  file_passwd_.open("Passwords.txt", std::fstream::in | std::fstream::out);
+  std::fstream temp_file;
+  temp_file.open("Temp.txt", std::fstream::out);
+  if (file_passwd_.is_open() && temp_file.is_open())  {
+    int contador = 0;
+    while (std::getline(file_passwd_, passwd, ' '))  {
+      if (passwd == nombre_)  {
+        contador++;
+        temp_file << passwd << " ";
+        file_passwd_ >> passwd;  
+        if (passwd == passwd_)  {
+          passwd = new_passwd;
+        }
+        temp_file << passwd << "\n";
+      }
+      else  {
+        temp_file << passwd << " ";
+        file_passwd_ >> passwd;
+        temp_file << passwd << "\n;      
+      }
+    file_name_.close();
+    remove("Usuarios.txt");
+    if (contador == 0)  {
+      temp_file << nombre_<< " " << new_passwd << "\n";
+      temp_file.close();
+    }
+    rename("Temp.txt", "Usuarios.txt");
+
+  }
+  else {
+    std::cout << "Error al cambiar el nombre\n";
+  }
   
 }
