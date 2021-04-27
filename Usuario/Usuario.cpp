@@ -120,15 +120,16 @@ Usuario::WritePasswd(std::string new_passwd)  {
       else  {
         temp_file << passwd << " ";
         file_passwd_ >> passwd;
-        temp_file << passwd << "\n;      
+        temp_file << passwd << "\n";      
       }
+    }
     file_name_.close();
-    remove("Usuarios.txt");
+    remove("Passwords.txt");
     if (contador == 0)  {
       temp_file << nombre_<< " " << new_passwd << "\n";
       temp_file.close();
     }
-    rename("Temp.txt", "Usuarios.txt");
+    rename("Temp.txt", "Passwords.txt");
 
   }
   else {
