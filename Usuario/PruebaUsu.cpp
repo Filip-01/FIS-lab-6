@@ -20,10 +20,6 @@ int main(int argc, char const *argv[])  {
   if (!usuario.AddName())  {
     std::cout << "El usuario ya existe.\n";
   }
-
-  if (!usuario.AddPasswd())  {
-    std::cout << "No se puede añadir la contraseña.\n";
-  }
   
   char y_n = ' ';
   bool ok = false;
@@ -49,7 +45,7 @@ int main(int argc, char const *argv[])  {
 
   std::cout << "Introduzca contraseña errónea o correcta.\n";
   std::cin >> passwd;
-  
+
   if (usuario.CheckUser(nombre))  {
     std::cout << "ok\n";
     if (usuario.CheckPasswd(passwd))  {

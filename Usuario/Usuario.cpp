@@ -16,10 +16,12 @@ Usuario::CheckUser(std::string nombre)  {
 
     // Se comprueba linea por línea si un usuario existe o no.
     while (file_name_ >> nombre_en_linea ) {
-    if (nombre == nombre_en_linea)
-      return true;
+      if (nombre == nombre_en_linea)  {
+        file_name_.close();
+        return true;
+      }
     }
-
+    file_name_.close();
     return false;
   }
   else  {
@@ -40,15 +42,19 @@ Usuario::CheckPasswd(std::string passwd)  {
 
       if (passwd_linea == nombre_)  {
         std::getline(file_passwd_,passwd_linea);
-        if (passwd == passwd_linea)
+        if (passwd == passwd_linea)  {
+          file_passwd_.close();
           return true;
-        else
+        }
+        else  {
+          file_passwd_.close();
           return false;
+        }
       }
       else 
         std::getline(file_passwd_, passwd_linea);
     }
-
+    file_passwd_.close();
     return false;
   }
   else  {
@@ -66,8 +72,12 @@ Usuario::AddName()  {
   
   else {
     file_name_.open( "Usuarios.txt", std::fstream::out | std::fstream::app);
-    if (file_name_.is_open())
+    if (file_name_.is_open())  {
       file_name_ << nombre_ << "\n";
+      file_name_.close();
+
+      return AddPasswd();
+    }
     else  {
       std::cout << "No se pudo abrir el fichero.\n";
       return false;
@@ -79,17 +89,14 @@ Usuario::AddName()  {
 
 bool
 Usuario::AddPasswd()  {
-  if (CheckUser(nombre_))
+  file_passwd_.open( "Passwords.txt", std::fstream::out | std::fstream::app);
+  if (file_passwd_.is_open())  {
+    file_passwd_ << nombre_ << ":" << passwd_ << "\n";
+    file_passwd_.close();
+  }
+  else  {
+    std::cout << "No se pudo abrir el fichero.\n";
     return false;
-  
-  else {
-    file_passwd_.open( "Passwords.txt", std::fstream::out | std::fstream::app);
-    if (file_passwd_.is_open())
-      file_passwd_ << nombre_ << ":" << passwd_ << "\n";
-    else  {
-      std::cout << "No se pudo abrir el fichero.\n";
-      return false;
-    }
   }
   return true;
 }
@@ -102,15 +109,13 @@ Usuario::WriteName(std::string new_name)  {
   std::fstream temp_file;
   temp_file.open("Temp.txt", std::fstream::out);
   if (file_name_.is_open() && temp_file.is_open())  {
-    int contador = 0;
     while (file_name_ >> name)  {
         if (name == nombre_)  {
           name = new_name;
-          contador++;
         }
         temp_file << name << "\n";
     }
-
+    
     file_name_.close();
     remove("Usuarios.txt");
     temp_file.close();
@@ -132,12 +137,11 @@ Usuario::WritePasswd(std::string new_passwd)  {
   std::fstream temp_file;
   temp_file.open("Temp.txt", std::fstream::out);
   if (file_passwd_.is_open() && temp_file.is_open())  {
-    int contador = 0;
+
     while (std::getline(file_passwd_, passwd, ':'))  {
       if (passwd == nombre_)  {
-        contador++;
         temp_file << passwd << ":";
-        file_passwd_ >> passwd;  
+        std::getline(file_passwd_, passwd);
         if (passwd == passwd_)  {
           passwd = new_passwd;
         }
@@ -145,7 +149,7 @@ Usuario::WritePasswd(std::string new_passwd)  {
       }
       else  {
         temp_file << passwd << ":";
-        file_passwd_ >> passwd;
+        std::getline(file_passwd_, passwd);
         temp_file << passwd << "\n";      
       }
     }
