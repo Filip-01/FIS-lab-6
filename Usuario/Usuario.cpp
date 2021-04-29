@@ -1,9 +1,5 @@
 #include "Usuario.h"
 
-Usuario::Usuario()  {
-}
-
-
 Usuario::~Usuario()  {
   if (file_passwd_.is_open())
     file_passwd_.close();

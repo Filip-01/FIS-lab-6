@@ -9,7 +9,7 @@
 
 class Usuario  {
  public:
-  Usuario();
+  Usuario() {}
   ~Usuario();
 
   void SetName(std::string nombre) {nombre_ = nombre;}
