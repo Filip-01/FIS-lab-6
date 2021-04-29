@@ -18,6 +18,9 @@ class Usuario  {
   bool CheckUser(std::string nombre);
   bool CheckPasswd(std::string passwd);
 
+  bool AddName();
+  bool AddPasswd();
+
   void WriteName(std::string new_name);
   void WritePasswd(std::string new_passwd);
 
