@@ -51,7 +51,7 @@ void opciones(int option) {
         
         default:
         std::cout << "________________________________________" << std::endl;
-        std::cout << "Por favor, introduce una opción válida" << std::endl;
+        std::cout << "Por favor, introduzca una opción válida" << std::endl;
         std::cout << "________________________________________" << std::endl;
         break;
     }
