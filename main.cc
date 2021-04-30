@@ -10,6 +10,7 @@ void opciones(int option);
 int main()
 {
     int option = menu();
+    opciones(option);
     return 0;
 }
 
