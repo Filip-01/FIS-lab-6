@@ -67,6 +67,7 @@
     "shared_mutex": "cpp",
     "thread": "cpp",
     "xhash": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "sstream": "cpp"
   }
 }
