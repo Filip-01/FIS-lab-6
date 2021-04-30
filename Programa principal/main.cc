@@ -18,7 +18,7 @@ int main()
 int menu() {
     int selection;
     separation();
-    std::cout << "[1] ¿Nuevo Usuario? ¡REGÍSTRATE YA!" << std::endl;
+    std::cout << "[1] ¿No tienes cuenta? ¡REGÍSTRATE YA!" << std::endl;
     std::cout << "[2] ¿Ya tienes cuenta? ¡INICIA SESIÓN!" << std::endl; 
     std::cout << "[3] SALIR" << std::endl;
     std::cout << "Seleccione una opcion -> ";
@@ -33,7 +33,7 @@ void separation() {
 
 void opciones() {
     int option = 0;
-    std::cout << "Esto es un menu de PapaGay Store" << std::endl;
+    std::cout << "Bienvenido a PapaGayo Store" << std::endl;
 
     while (option != 3) {
         option = menu();
