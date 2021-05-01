@@ -120,12 +120,35 @@ Usuario::WriteName(std::string new_name)  {
     remove("Usuarios.txt");
     temp_file.close();
     rename("Temp.txt", "Usuarios.txt");
+    name = "";
 
+    file_passwd_.open("Passwords.txt", std::fstream::in);
+    temp_file.open("Temp.txt", std::fstream::out);
+    if (file_passwd_.is_open() && temp_file.is_open())  {
+
+      while (std::getline(file_passwd_, name, ':'))  {
+        if (name == nombre_)  {
+          temp_file << new_name << ":";
+          std::getline(file_passwd_, name);
+          
+          temp_file << name << "\n";
+        }
+        else  {
+          temp_file << name << ":";
+          std::getline(file_passwd_, name);
+          temp_file << name << "\n";      
+        }
+      }
+    file_passwd_.close();
+    remove("Passwords.txt");
+    temp_file.close();
+    rename("Temp.txt", "Passwords.txt");
+
+    }
   }
   else {
     std::cout << "Error al cambiar el nombre\n";
   }
-  
 }
 
 

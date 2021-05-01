@@ -37,10 +37,12 @@ int main(int argc, char const *argv[])  {
     std::cin >> nombre;
   
     usuario.WriteName(nombre);
+    usuario.SetName(nombre);
 
     std::cout << "Introduzca nuevo passwd.\n";
     std::cin >> passwd;
     usuario.WritePasswd(passwd);
+    usuario.SetPasswd(passwd);
   }
 
   std::cout << "Introduzca contraseña errónea o correcta.\n";
