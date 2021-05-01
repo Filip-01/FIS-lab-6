@@ -10,7 +10,7 @@ Usuario::~Usuario()  {
 
 bool
 Usuario::CheckUser(std::string nombre)  {
-  file_name_.open("Usuarios.txt", std::fstream::in);
+  file_name_.open("../Usuario/Usuarios.txt", std::fstream::in);
   if (file_name_.is_open() )  {
     std::string nombre_en_linea;
 
@@ -34,7 +34,7 @@ Usuario::CheckUser(std::string nombre)  {
 
 bool
 Usuario::CheckPasswd(std::string passwd)  {
-  file_passwd_.open("Passwords.txt", std::fstream::in);
+  file_passwd_.open("../Usuario/Passwords.txt", std::fstream::in);
   if (file_passwd_.is_open() )  {
     std::string passwd_linea;
 
@@ -71,7 +71,7 @@ Usuario::AddName()  {
     return false;
   
   else {
-    file_name_.open( "Usuarios.txt", std::fstream::out | std::fstream::app);
+    file_name_.open( "../Usuario/Usuarios.txt", std::fstream::out | std::fstream::app);
     if (file_name_.is_open())  {
       file_name_ << nombre_ << "\n";
       file_name_.close();
@@ -89,7 +89,7 @@ Usuario::AddName()  {
 
 bool
 Usuario::AddPasswd()  {
-  file_passwd_.open( "Passwords.txt", std::fstream::out | std::fstream::app);
+  file_passwd_.open( "../Usuario/Passwords.txt", std::fstream::out | std::fstream::app);
   if (file_passwd_.is_open())  {
     file_passwd_ << nombre_ << ":" << passwd_ << "\n";
     file_passwd_.close();
@@ -105,7 +105,7 @@ Usuario::AddPasswd()  {
 void
 Usuario::WriteName(std::string new_name)  {
   std::string name;
-  file_name_.open("Usuarios.txt", std::fstream::in);
+  file_name_.open("../Usuario/Usuarios.txt", std::fstream::in);
   std::fstream temp_file;
   temp_file.open("Temp.txt", std::fstream::out);
   if (file_name_.is_open() && temp_file.is_open())  {
@@ -117,12 +117,12 @@ Usuario::WriteName(std::string new_name)  {
     }
     
     file_name_.close();
-    remove("Usuarios.txt");
+    remove("../Usuario/Usuarios.txt");
     temp_file.close();
-    rename("Temp.txt", "Usuarios.txt");
+    rename("Temp.txt", "../Usuario/Usuarios.txt");
     name = "";
 
-    file_passwd_.open("Passwords.txt", std::fstream::in);
+    file_passwd_.open("../Usuario/Passwords.txt", std::fstream::in);
     temp_file.open("Temp.txt", std::fstream::out);
     if (file_passwd_.is_open() && temp_file.is_open())  {
 
@@ -140,9 +140,9 @@ Usuario::WriteName(std::string new_name)  {
         }
       }
     file_passwd_.close();
-    remove("Passwords.txt");
+    remove("../Usuario/Passwords.txt");
     temp_file.close();
-    rename("Temp.txt", "Passwords.txt");
+    rename("Temp.txt", "../Usuario/Passwords.txt");
 
     }
   }
@@ -156,7 +156,7 @@ Usuario::WriteName(std::string new_name)  {
 void
 Usuario::WritePasswd(std::string new_passwd)  {
   std::string passwd;
-  file_passwd_.open("Passwords.txt", std::fstream::in);
+  file_passwd_.open("../Usuario/Passwords.txt", std::fstream::in);
   std::fstream temp_file;
   temp_file.open("Temp.txt", std::fstream::out);
   if (file_passwd_.is_open() && temp_file.is_open())  {
@@ -177,9 +177,9 @@ Usuario::WritePasswd(std::string new_passwd)  {
       }
     }
     file_name_.close();
-    remove("Passwords.txt");
+    remove("../Usuario/Passwords.txt");
     temp_file.close();
-    rename("Temp.txt", "Passwords.txt");
+    rename("Temp.txt", "../Usuario/Passwords.txt");
 
   }
   else {

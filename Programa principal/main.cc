@@ -1,8 +1,9 @@
 //Función menú que muestra REQUESITOS 
 //Por Jorge Hernández Toledo. El que no sabe programar
-//Compilación g++ -o main main.cc
+//Compilación g++ -o main main.cc ../Usuario/Usuario.cpp
 
 #include <iostream>
+#include "../Usuario/Usuario.h"
 
 
 int menu();
@@ -34,22 +35,57 @@ void separation() {
 void opciones() {
     int option = 0;
     std::cout << "Bienvenido a PapaGayo Store" << std::endl;
-
+    Usuario user;
+    std::string name;
+    std::string aux;
+    std::string passwd;
     while (option != 3) {
         option = menu();
         switch (option) {
-            case 1:
-                separation();
+            case 1:  {
+              separation();
+              bool end = true;
+              do  {
                 std::cout << "Introduce un nombre de usuario: " << std::endl;
-                std::cout << "Verifica el nombre de usuario: " << std::endl;
-                std::cout << "Introduce una contraseña: " << std::endl;
-                std::cout << "Verifica la contraseña: " << std::endl;
+                std::cin >> name;
+                if (!user.CheckUser(name))  {
+                  user.SetName(name);
+                  do  {
+                    std::cout << "Introduce una contraseña: " << std::endl;
+                    std::cin >> passwd;
+                    std::cout << "Verifica la contraseña: " << std::endl;
+                    std::cin >> aux;
+                    if (passwd != aux)
+                      std::cout << "Las contraseñas no coinciden." << std::endl;
+                    
+                  } while(passwd != aux);
+                  user.SetPasswd(passwd);
+                  user.AddName();
+                  user.AddPasswd();
+                }
+                else  {
+                  std::cout << "El nombre de usuario ya existe." << std::endl;
+                  end = false;
+                }
+              } while (!end);
+              std::cout << "Usuario añadido." << std::endl;
             break;
-        
+            }
             case 2:
                 separation();
                 std::cout << "Introduce un nombre de usuario: " << std::endl;
+                std::cin >> name;
+                user.SetName(name);
+
                 std::cout << "Introduce una contraseña: " << std::endl;
+                std::cin >> passwd;
+                user.SetPasswd(passwd);
+                
+                if (user.CheckUser(name) && user.CheckPasswd(passwd))
+                  std::cout << "¡Login correcto!" << std::endl;
+                else
+                  std::cout << "Login incorrecto." << std::endl;
+                
             break; 
         
             case 3: 
