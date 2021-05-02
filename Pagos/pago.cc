@@ -73,8 +73,8 @@ std::string Pago::Check_card(){
         while (!file_card_.eof())  {
             std::getline(file_card_, card_linea);
             if (card_linea == nombre_)  {
-                std::getline(file_card_,card_linea);
-                if (card_linea == "no_card_")  {  // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
+                std::getline(file_card_,card_linea, ':');
+                if (card_linea == "no_card_")  {          // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
                     file_card_.close();
                     card_linea = "0";
                     return card_linea;
@@ -94,7 +94,6 @@ std::string Pago::Check_card(){
     else  {
         std::cout << "Error al comprobar fichero de usuarios y tarjetas.\n"; 
     }
-  
 }
 
 bool Pago::Add_card(){
@@ -106,7 +105,7 @@ void Pago::MenuPago() {
     long numero;
     std::string respuesta;
     respuesta = Check_card();
-    std::cout << respuesta ;
+    std::cout << respuesta;
 
     std::cout << "Elija un metodo de pago\n" // lo pongo sin tilde para que en la ejecución se vea bien.
               << "1 -> Tarjeta de Credito\n"
@@ -118,30 +117,37 @@ void Pago::MenuPago() {
     switch (opcion)
     {
     case 1:
-        if (Check_card() != "0"){                                                               //
-            std::cout << "Tiene la tarjeta " << Check_card() << "guardada. ¿Desea usarla?";     //     COMENTAR TODO ESTO EN CASO DE  
-            std::cin >> respuesta;                                                              //   DE USARLO COMO ESTABA ANTERIORMENTE
-            if ((respuesta == "si") || (respuesta == "Si")){                                    //
-                std::cout << "Pago realizado con la tarjeta guardada";                          //
-            }                                                                                   //
-            break;                                                                              //
-        }                                                                                       //
-        else                                                                                    //    
+        if (Check_card() != "0"){                                                               
+            std::cout << "Tiene la tarjeta " << Check_card() << "guardada. ¿Desea usarla?";       
+            std::cin >> respuesta;                                                              
+            if ((respuesta == "si") || (respuesta == "Si")){                                    
+                std::cout << "Pago realizado con la tarjeta guardada";                                                                                                          //
+                break; 
+            }
+            else {
+                std::cout << "Ingrese el número de la tarjeta (24 digitos): \n";                    
+                std::cin >> numero;                                         
+                Card(numero);
+                break;
+            }                                                                          
+        }                                                                                       
+        else                                                                                       
             std::cout << "Ingrese el número de la tarjeta (24 digitos): \n";                    
             std::cin >> numero;                                         
             Card(numero);
 
-            std::cout << "¿Desea guardar su tarjeta?";                                          //
-            std::cin >> respuesta;                                                              //
-            if ((respuesta == "si") || (respuesta == "Si")){                                    //
-                Add_card();                                                                     //  ESTO TAMBIEN
-                break;                                                                          //  
-            }                                                                                   //
-            else                                                                                //
+            std::cout << "¿Desea guardar su tarjeta?";                                          
+            std::cin >> respuesta;                                                              
+            if ((respuesta == "si") || (respuesta == "Si")){                                    
+                Add_card();                                                                     
+                break;                                                                           
+            }                                                                                   
+            else                                                                                
                 break;
     case 2:
         Paypal();
         break;
+
     case 3:
         std::cout << "Ingrese el PIN de Paysafecard (16 digitos): \n";
         std::cin >> numero;
