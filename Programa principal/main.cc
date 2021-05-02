@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../Usuario/Usuario.h"
 
+
 int logMenu();
 void logmenuOptions();
 int mainMenu();
@@ -70,6 +71,7 @@ void logmenuOptions() {
         }
     }
 }
+
 
 int mainMenu() {
     int selection;
