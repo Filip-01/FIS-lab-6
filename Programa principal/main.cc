@@ -5,10 +5,11 @@
 #include <iostream>
 #include "../Usuario/Usuario.h"
 
-
 int menu();
 void opciones();
 void separation();
+void userRegister();
+void userLogin();
 
 int main()
 {
@@ -43,49 +44,11 @@ void opciones() {
         option = menu();
         switch (option) {
             case 1:  {
-              separation();
-              bool end = true;
-              do  {
-                std::cout << "Introduce un nombre de usuario: " << std::endl;
-                std::cin >> name;
-                if (!user.CheckUser(name))  {
-                  user.SetName(name);
-                  do  {
-                    std::cout << "Introduce una contraseña: " << std::endl;
-                    std::cin >> passwd;
-                    std::cout << "Verifica la contraseña: " << std::endl;
-                    std::cin >> aux;
-                    if (passwd != aux)
-                      std::cout << "Las contraseñas no coinciden." << std::endl;
-                    
-                  } while(passwd != aux);
-                  user.SetPasswd(passwd);
-                  user.AddName();
-                  user.AddPasswd();
-                }
-                else  {
-                  std::cout << "El nombre de usuario ya existe." << std::endl;
-                  end = false;
-                }
-              } while (!end);
-              std::cout << "Usuario añadido." << std::endl;
+                userRegister();
             break;
             }
             case 2:
-                separation();
-                std::cout << "Introduce un nombre de usuario: " << std::endl;
-                std::cin >> name;
-                user.SetName(name);
-
-                std::cout << "Introduce una contraseña: " << std::endl;
-                std::cin >> passwd;
-                user.SetPasswd(passwd);
-                
-                if (user.CheckUser(name) && user.CheckPasswd(passwd))
-                  std::cout << "¡Login correcto!" << std::endl;
-                else
-                  std::cout << "Login incorrecto." << std::endl;
-                
+                userLogin();
             break; 
         
             case 3: 
@@ -100,4 +63,59 @@ void opciones() {
         }
     }
 
+}
+
+void userRegister() {
+    separation();
+    Usuario user;
+    std::string name;
+    std::string aux;
+    std::string passwd;
+    bool end = true;
+    do  {
+        std::cout << "Introduce un nombre de usuario: " << std::endl;
+        std::cin >> name;
+        if (!user.CheckUser(name))  {
+            user.SetName(name);
+            do  {
+                std::cout << "Introduce una contraseña: " << std::endl;
+                std::cin >> passwd;
+                std::cout << "Verifica la contraseña: " << std::endl;
+                std::cin >> aux;
+            if (passwd != aux)
+                std::cout << "Las contraseñas no coinciden." << std::endl;
+                    
+        } while(passwd != aux);
+        
+        user.SetPasswd(passwd);
+        user.AddName();
+        user.AddPasswd();
+      }
+
+      else  {
+          std::cout << "El nombre de usuario ya existe." << std::endl;
+          end = false;
+      }
+    } while (!end);
+    std::cout << "Usuario añadido." << std::endl;
+}
+
+void userLogin() {
+    Usuario user;
+    std::string name;
+    std::string aux;
+    std::string passwd;
+    separation();
+    std::cout << "Introduce un nombre de usuario: " << std::endl;
+    std::cin >> name;
+    user.SetName(name);
+
+    std::cout << "Introduce una contraseña: " << std::endl;
+    std::cin >> passwd;
+    user.SetPasswd(passwd);
+                
+    if (user.CheckUser(name) && user.CheckPasswd(passwd))
+        std::cout << "¡Login correcto!" << std::endl;
+    else
+        std::cout << "Login incorrecto." << std::endl;
 }
