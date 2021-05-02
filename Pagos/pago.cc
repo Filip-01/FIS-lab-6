@@ -1,23 +1,26 @@
 #include "pago.h"
 
-void Pago::Card(long numero) {
+int Pago::Tamaño(int number){
+    int tam;
+    for (int i=0; i<50 ; i++){
+        number=number/10;
+        tam++;
+        if (number < 10)
+            return (tam + 1);
+    }
+}
+
+long Pago::Card() {
     std::string respuesta;
+    int tarjeta_ = 0;
     do {
-        std::cout << "[";
-        std::cin >> numero;
-        std::cout << "]\n";
-    
-        do {
-            std::cout << "¿Es su numero: " << numero << "?\n"
-                      << "¿Si o no?";
-            std::cin >> respuesta;
-            if (respuesta == "no") {
-                std::cout << "Vuelva a introducir el número\n";
-                break;
-            }
-        
-        } while ((respuesta != "Si") || (respuesta != "si"));
-    }while(numero != 24);
+        std::cout << "Introduce los 24 digitos de la tarjeta: \n";
+        std::cin >> tarjeta_;
+        std::cout << "¿Es " << tarjeta_ << " tu numero de tarjeta? \n";
+        std::cin >> respuesta;
+    }
+    while ((respuesta != "si"));// && (Tamaño(tarjeta_) == 24)); 
+    return tarjeta_;
 }
 
 void Pago::Paypal() {
@@ -65,16 +68,17 @@ void Pago::Banco() {
               << " con exito\n";
 }
 
-std::string Pago::Check_card(){               
+std::string Pago::Check_card(){             
+    std::string comparation = "no";  
     file_card_.open("file_card_.txt", std::fstream::in);
-    if (file_card_.is_open() )  {
+    if (file_card_.is_open())  {
         std::string card_linea;
 
         while (!file_card_.eof())  {
-            std::getline(file_card_, card_linea);
+            std::getline(file_card_, card_linea,':');
             if (card_linea == nombre_)  {
-                std::getline(file_card_,card_linea, ':');
-                if (card_linea == "no_card_")  {          // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
+                std::getline(file_card_,card_linea);
+                if (card_linea == comparation)  {          // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
                     file_card_.close();
                     card_linea = "0";
                     return card_linea;
@@ -102,10 +106,8 @@ bool Pago::Add_card(){
 
 void Pago::MenuPago() {
     int opcion;
-    long numero;
+    long numero = 0;
     std::string respuesta;
-    respuesta = Check_card();
-    std::cout << respuesta;
 
     std::cout << "Elija un metodo de pago\n" // lo pongo sin tilde para que en la ejecución se vea bien.
               << "1 -> Tarjeta de Credito\n"
@@ -126,15 +128,13 @@ void Pago::MenuPago() {
             }
             else {
                 std::cout << "Ingrese el número de la tarjeta (24 digitos): \n";                    
-                std::cin >> numero;                                         
-                Card(numero);
+                // std::cin >> numero;                                         
+                Card();
                 break;
             }                                                                          
         }                                                                                       
-        else                                                                                       
-            std::cout << "Ingrese el número de la tarjeta (24 digitos): \n";                    
-            std::cin >> numero;                                         
-            Card(numero);
+        else                                                                                                                             
+            numero = Card();
 
             std::cout << "¿Desea guardar su tarjeta?";                                          
             std::cin >> respuesta;                                                              

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cmath>
 
 class Pago {
     public:
@@ -14,10 +15,11 @@ class Pago {
     ~Pago() {}
 
     void MenuPago();
-    void setNombre(std::string nombre) {nombre = nombre_;}
+    void setNombre(std::string nombre) {nombre_ = nombre;}
+    int Tamaño(int number);
 
     
-    void Card(long numero);
+    long Card();
     void Paypal();
     void Paysafecard(long numero);
     void Banco();
