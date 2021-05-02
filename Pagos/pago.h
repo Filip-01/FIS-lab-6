@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 class Pago {
     public:
@@ -21,7 +22,12 @@ class Pago {
     void Paysafecard(long numero);
     void Banco();
 
+    std::string Check_card();       // esta función detecta si hay una tarjeta asociada al usuario
+    bool Add_card();
+
     private:
     long numero;
     std::string nombre_;
+    std::fstream file_card_;
+
 };
