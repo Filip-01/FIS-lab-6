@@ -1,55 +1,37 @@
 #include "pago.h"
 
-int Pago::Tamaño(int number){
-    int tam;
-    for (int i=0; i<50 ; i++){
-        number=number/10;
-        tam++;
-        if (number < 10)
-            return (tam + 1);
-    }
-}
-
-long Pago::Card() {
+std::string Pago::Card() {
     std::string respuesta;
-    int tarjeta_ = 0;
+    std::string tarjeta_;
     do {
-        std::cout << "Introduce los 24 digitos de la tarjeta: \n";
+        std::cout << "Ingrese los 24 digitos de la tarjeta: \n";
         std::cin >> tarjeta_;
         std::cout << "¿Es " << tarjeta_ << " tu numero de tarjeta? \n";
         std::cin >> respuesta;
     }
-    while ((respuesta != "si"));// && (Tamaño(tarjeta_) == 24)); 
+    while ((respuesta != "si") || (tarjeta_.size() != 24));
     return tarjeta_;
 }
 
 void Pago::Paypal() {
     std::string cuenta, dominio1 = "gmail.com", dominio2 = "hotmail.com";
     do {
-        std::cout << "Ingrese la cuenta de paypal: \n Nota, debe de ser un gmail.com o hotmail.com\n";
+        std::cout << "Ingrese la cuenta de paypal: \nNota, debe de ser un gmail.com o hotmail.com\n";
         std::cin >> cuenta;
-    } while ((cuenta != dominio1) && (cuenta != dominio2)); //ola@gmail.com
+    } while ((cuenta == dominio1) || (cuenta == dominio2)); //ola@gmail.com
     std::cout << "Su cuenta " << cuenta << " fue ingresada con exito!\n";
 }
 
-void Pago::Paysafecard(long numero) {
+void Pago::Paysafecard() {
     std::string respuesta;
+    std::string pin;
     do {
-        std::cout << "[";
-        std::cin >> numero;
-        std::cout << "]\n";
-    
-        do {
-            std::cout << "¿Es su PIN: " << numero << "?\n"
-                      << "¿Si o no?";
-            std::cin >> respuesta;
-            if (respuesta == "no") {
-                std::cout << "Vuelva a introducir el PIN\n";
-                break;
-            }
-        
-        } while ((respuesta != "Si") || (respuesta != "si"));
-    }while(numero != 16);
+        std::cout << "Ingrese los 16 digitos del PIN de Paysafecard: \n";
+        std::cin >> pin;
+        std::cout << "¿Es " << pin << " correcto? \n";
+        std::cin >> respuesta;
+    }
+    while ((respuesta != "si") || (pin.size() != 16));
 }
 
 void Pago::Banco() {
@@ -69,7 +51,7 @@ void Pago::Banco() {
 }
 
 std::string Pago::Check_card(){             
-    std::string comparation = "no";  
+    std::string comparation = "no_card_";  
     file_card_.open("file_card_.txt", std::fstream::in);
     if (file_card_.is_open())  {
         std::string card_linea;
@@ -100,13 +82,13 @@ std::string Pago::Check_card(){
     }
 }
 
-bool Pago::Add_card(){
+bool Pago::Add_card(std::string tarjeta_){ //falta completar la funcion que introduce las tarjetas en el fichero
     
 }
 
 void Pago::MenuPago() {
     int opcion;
-    long numero = 0;
+    std::string numero;
     std::string respuesta;
 
     std::cout << "Elija un metodo de pago\n" // lo pongo sin tilde para que en la ejecución se vea bien.
@@ -120,26 +102,23 @@ void Pago::MenuPago() {
     {
     case 1:
         if (Check_card() != "0"){                                                               
-            std::cout << "Tiene la tarjeta " << Check_card() << "guardada. ¿Desea usarla?";       
+            std::cout << "Tiene la tarjeta " << Check_card() << " guardada. ¿Desea usarla? \n";       
             std::cin >> respuesta;                                                              
             if ((respuesta == "si") || (respuesta == "Si")){                                    
                 std::cout << "Pago realizado con la tarjeta guardada";                                                                                                          //
                 break; 
             }
-            else {
-                std::cout << "Ingrese el número de la tarjeta (24 digitos): \n";                    
-                // std::cin >> numero;                                         
+            else {                                                             
                 Card();
                 break;
             }                                                                          
         }                                                                                       
         else                                                                                                                             
             numero = Card();
-
             std::cout << "¿Desea guardar su tarjeta?";                                          
             std::cin >> respuesta;                                                              
             if ((respuesta == "si") || (respuesta == "Si")){                                    
-                Add_card();                                                                     
+                Add_card(numero);                                                                     
                 break;                                                                           
             }                                                                                   
             else                                                                                
@@ -149,9 +128,7 @@ void Pago::MenuPago() {
         break;
 
     case 3:
-        std::cout << "Ingrese el PIN de Paysafecard (16 digitos): \n";
-        std::cin >> numero;
-        Paysafecard(numero);
+        Paysafecard();
         break;
 
     case 4:

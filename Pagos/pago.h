@@ -16,16 +16,15 @@ class Pago {
 
     void MenuPago();
     void setNombre(std::string nombre) {nombre_ = nombre;}
-    int Tamaño(int number);
 
     
-    long Card();
+    std::string Card();
     void Paypal();
-    void Paysafecard(long numero);
+    void Paysafecard();
     void Banco();
 
     std::string Check_card();       // esta función detecta si hay una tarjeta asociada al usuario
-    bool Add_card();
+    bool Add_card(std::string tarjeta_);
 
     private:
     long numero;
