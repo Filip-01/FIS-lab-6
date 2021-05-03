@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "../Usuario/Usuario.h"
+#include "../Pagos/pago.h"
 
 
 int logMenu();
@@ -55,7 +56,7 @@ void logmenuOptions() {
 
             case 2:
                 if (userLogin()) {
-                    mainmenuOptions();
+                    mainmenuOptions(); // pasar name para poder inicializarla en la clase pago
                 }
             break; 
         
@@ -87,8 +88,10 @@ int mainMenu() {
 }
 
 
-void mainmenuOptions() {
+void mainmenuOptions() {  // podria recibir la variable nombre para poder inicializarla en la clase pago
     int option = 0;
+    //Pago pagar;
+    //pagar.setNombre(nombre);
     while (option != 5) {
         option = mainMenu();
         switch (option) {
@@ -101,6 +104,7 @@ void mainmenuOptions() {
             break;
                 
             case 3:
+                //pagar.MenuPago();
                 separation();
             break;
 
