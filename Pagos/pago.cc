@@ -93,7 +93,7 @@ bool Pago::Add_card(std::string tarjeta_){ //falta completar la funcion que intr
 void Pago::Add_user() {
     file_card_.open( "file_card_.txt", std::fstream::out | std::fstream::app);
     if (file_card_.is_open())  {
-      file_card_ << nombre_ << ":" << "\n";
+      file_card_ << nombre_ << ":no_card_" << "\n";
       file_card_.close();
     }
     else  {
@@ -136,18 +136,24 @@ void Pago::MenuPago() {
                 Add_card(numero);                                                                     
                 break;                                                                           
             }                                                                                   
-            else                                                                                
+            else  {    
+                std::cout << "Pago realizado con la tarjeta\n";                                                                          
                 break;
+            }
+
     case 2:
         Paypal();
+        std::cout << "Pago realizado con la cuenta de paypal\n";
         break;
 
     case 3:
         Paysafecard();
+        std::cout << "Pago realizado con Paysafecard\n";
         break;
 
     case 4:
         Banco();
+        std::cout << "Pago realizado por transaccion bancaria\n";
         break;
     
     default:
