@@ -24,6 +24,8 @@ class Usuario  {
   void WriteName(std::string new_name);
   void WritePasswd(std::string new_passwd);
 
+  std::string GetName() {return nombre_;}
+
  private:
  std::string nombre_;
  std::string passwd_;

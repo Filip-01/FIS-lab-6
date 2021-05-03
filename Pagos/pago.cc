@@ -113,7 +113,6 @@ bool Pago::Add_card(std::string tarjeta_){ //falta completar la funcion que intr
     remove("../Pagos/file_card_.txt");
     temp_file.close();
     rename("Change.txt", "../Pagos/file_card_.txt");
-
 }
 
 void Pago::Add_user() {

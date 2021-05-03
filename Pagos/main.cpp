@@ -4,7 +4,7 @@
 int main()  
 {
     Pago pag;
-    std::string nombre = "Lucas";
+    std::string nombre = "Pablo";
     pag.setNombre(nombre);
     pag.MenuPago();
 }
