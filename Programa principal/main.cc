@@ -1,11 +1,13 @@
 //Función menú que muestra REQUESITOS 
 //Por Jorge Hernández Toledo. El que no sabe programar
-//Compilación g++ -o main main.cc ../Usuario/Usuario.cpp
+//Compilación g++ -w -o main main.cc ../Usuario/Usuario.cpp ../Pagos/pago.cc
 
 #include <iostream>
 #include "../Usuario/Usuario.h"
 #include "../Pagos/pago.h"
 
+Usuario user;
+Pago pagar;
 
 int logMenu();
 void logmenuOptions();
@@ -43,10 +45,6 @@ void separation() {
 
 void logmenuOptions() {
     int option = 0;
-    Usuario user;
-    std::string name;
-    std::string aux;
-    std::string passwd;
     while (option != 3 && option != 2) {
         option = logMenu();
         switch (option) {
@@ -56,7 +54,7 @@ void logmenuOptions() {
 
             case 2:
                 if (userLogin()) {
-                    mainmenuOptions(); // pasar name para poder inicializarla en la clase pago
+                    mainmenuOptions(); 
                 }
             break; 
         
@@ -90,8 +88,7 @@ int mainMenu() {
 
 void mainmenuOptions() {  // podria recibir la variable nombre para poder inicializarla en la clase pago
     int option = 0;
-    //Pago pagar;
-    //pagar.setNombre(nombre);
+    pagar.SetNombre(user.GetName());
     while (option != 5) {
         option = mainMenu();
         switch (option) {
@@ -104,8 +101,9 @@ void mainmenuOptions() {  // podria recibir la variable nombre para poder inicia
             break;
                 
             case 3:
-                //pagar.MenuPago();
                 separation();
+                pagar.MenuPago();
+                //separation();
             break;
 
             case 4:
@@ -128,7 +126,6 @@ void mainmenuOptions() {  // podria recibir la variable nombre para poder inicia
 
 void userRegister() {
     separation();
-    Usuario user;
     std::string name;
     std::string aux;
     std::string passwd;
@@ -160,9 +157,7 @@ void userRegister() {
 
 
 bool userLogin() {
-    Usuario user;
     std::string name;
-    std::string aux;
     std::string passwd;
     separation();
     std::cout << "Introduce un nombre de usuario: " << std::endl;
@@ -174,6 +169,7 @@ bool userLogin() {
     user.SetPasswd(passwd);
                 
     if (user.CheckUser(name) && user.CheckPasswd(passwd)) {
+        separation();
         std::cout << "¡Login correcto!" << std::endl;
         return true;
     }

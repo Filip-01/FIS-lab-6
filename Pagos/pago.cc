@@ -4,9 +4,9 @@ std::string Pago::Card() {
     std::string respuesta;
     std::string tarjeta_;
     do {
-        std::cout << "Ingrese los 24 digitos de la tarjeta: \n";
+        std::cout << "\nIngrese los 24 digitos de la tarjeta: \n";
         std::cin >> tarjeta_;
-        std::cout << "¿Es " << tarjeta_ << " su tarjeta? \n";
+        std::cout << "\n¿Es " << tarjeta_ << " su tarjeta? \n";
         std::cin >> respuesta;
     }
     while ((respuesta != "si") || (tarjeta_.size() != 24));
@@ -16,19 +16,19 @@ std::string Pago::Card() {
 void Pago::Paypal() {
     std::string cuenta, dominio1 = "gmail.com", dominio2 = "hotmail.com";
     do {
-        std::cout << "Ingrese la cuenta de paypal: \nNota, debe de ser un gmail.com o hotmail.com\n";
+        std::cout << "\nIngrese la cuenta de paypal: \nNota, debe de ser un gmail.com o hotmail.com\n";
         std::cin >> cuenta;
     } while ((cuenta == dominio1) || (cuenta == dominio2)); //ola@gmail.com
-    std::cout << "Su cuenta " << cuenta << " fue ingresada con exito!\n";
+    std::cout << "\nSu cuenta " << cuenta << " fue ingresada con exito!\n";
 }
 
 void Pago::Paysafecard() {
     std::string respuesta;
     std::string pin;
     do {
-        std::cout << "Ingrese los 16 digitos del PIN de Paysafecard: \n";
+        std::cout << "\nIngrese los 16 digitos del PIN de Paysafecard: \n";
         std::cin >> pin;
-        std::cout << "¿Es " << pin << " correcto? \n";
+        std::cout << "\n¿Es " << pin << " correcto? \n";
         std::cin >> respuesta;
     }
     while ((respuesta != "si") || (pin.size() != 16));
@@ -36,16 +36,16 @@ void Pago::Paysafecard() {
 
 void Pago::Banco() {
     std::string codigo, IBAN1, IBAN2, IBAN3, IBAN4;
-    std::cout << "Introduzca sus 2 digitos de control\n"
-              << "ES";
+    std::cout << "\nIntroduzca sus 2 digitos de control\n"
+              << "\nES";
     std::cin >> codigo;
 
-    std::cout << "Ingrese el IBAN de su cuenta bancaria (20 digitos): \n"
-              << "Introduzca los numeros de 4 digitos en 4)\n";
+    std::cout << "\nIngrese el IBAN de su cuenta bancaria (20 digitos): \n"
+              << "\nIntroduzca los numeros de 4 digitos en 4)\n";
     std::cin >> IBAN1 >> IBAN2 >> IBAN3 >> IBAN4;
 
-    std::cout << "Cuenta introducida:\n"
-              << "IBAN: ES" << codigo << " " << IBAN1 << " " 
+    std::cout << "\nCuenta introducida:\n"
+              << "\nIBAN: ES" << codigo << " " << IBAN1 << " " 
               << IBAN2 << " " << IBAN3 << " " << IBAN4
               << " con exito\n";
 }
@@ -113,6 +113,7 @@ bool Pago::Add_card(std::string tarjeta_){ //falta completar la funcion que intr
     remove("../Pagos/file_card_.txt");
     temp_file.close();
     rename("Change.txt", "../Pagos/file_card_.txt");
+
 }
 
 void Pago::Add_user() {
@@ -132,20 +133,21 @@ void Pago::MenuPago() {
     std::string respuesta;
 
     std::cout << "Elija un metodo de pago\n" // lo pongo sin tilde para que en la ejecución se vea bien.
-              << "1 -> Tarjeta de Credito\n"
-              << "2 -> Cuenta de Paypal\n"
-              << "3 -> Cuenta de Paysafecard\n"
-              << "4 -> Transferencia bancaria\n";
+              << "[1] Tarjeta de Credito\n"
+              << "[2] Cuenta de Paypal\n"
+              << "[3] Cuenta de Paysafecard\n"
+              << "[4] Transferencia bancaria\n"
+              << "Seleccione una opcion -> ";
     std::cin >> opcion;
     
     switch (opcion)
     {
     case 1:
         if (Check_card() != "0"){                                                               
-            std::cout << "Tiene la tarjeta " << Check_card() << " guardada. ¿Desea usarla? \n";       
+            std::cout << "\nTiene la tarjeta " << Check_card() << " guardada. ¿Desea usarla? \n";       
             std::cin >> respuesta;                                                              
             if ((respuesta == "si") || (respuesta == "Si")){                                    
-                std::cout << "Pago realizado con la tarjeta guardada";                                                                                                          //
+                std::cout << "\nPago realizado con la tarjeta guardada";                                                                                                          //
                 break; 
             }
             else {                                                             
@@ -155,26 +157,26 @@ void Pago::MenuPago() {
         }                                                                                       
         else                                                                                                                             
             numero = Card();
-            std::cout << "¿Desea guardar su tarjeta?\n";                                          
+            std::cout << "\n¿Desea guardar su tarjeta?\n";                                          
             std::cin >> respuesta;                                                              
             if ((respuesta == "si") || (respuesta == "Si")){                                    
                 Add_card(numero);   
-                std::cout << "Pago realizado con la tarjeta\n";                                                                  
+                std::cout << "\nPago realizado con la tarjeta\n";                                                                  
                 break;                                                                           
             }                                                                                   
             else  {    
-                std::cout << "Pago realizado con la tarjeta\n";                                                                          
+                std::cout << "\nPago realizado con la tarjeta\n";                                                                          
                 break;
             }
 
     case 2:
         Paypal();
-        std::cout << "Pago realizado con la cuenta de paypal\n";
+        std::cout << "\nPago realizado con la cuenta de paypal\n";
         break;
 
     case 3:
         Paysafecard();
-        std::cout << "Pago realizado con Paysafecard\n";
+        std::cout << "\nPago realizado con Paysafecard\n";
         break;
 
     case 4:

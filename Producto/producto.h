@@ -35,7 +35,7 @@ class producto {
 
 int producto::create(std::string name, unsigned category, float price) {
   name_ = name;
-  category_ = category_;
+  category_ = category_; 
   price_ = price;
 
   int seed = (stoi(name_) + category_);

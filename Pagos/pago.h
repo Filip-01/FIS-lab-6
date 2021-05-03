@@ -15,7 +15,7 @@ class Pago {
     ~Pago() {}
 
     void MenuPago();
-    void setNombre(std::string nombre) {nombre_ = nombre;}
+    void SetNombre(std::string nombre) {nombre_ = nombre;}
 
     
     std::string Card();
