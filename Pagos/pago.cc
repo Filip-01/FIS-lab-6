@@ -47,7 +47,7 @@ void Pago::Banco() {
     std::cout << "\nCuenta introducida:\n"
               << "\nIBAN: ES" << codigo << " " << IBAN1 << " " 
               << IBAN2 << " " << IBAN3 << " " << IBAN4
-              << " con exito\n";
+              << " con exito\n\n";
 }
 
 std::string Pago::Check_card(){  
@@ -147,7 +147,7 @@ void Pago::MenuPago() {
             std::cout << "\nTiene la tarjeta " << Check_card() << " guardada. ¿Desea usarla? \n";       
             std::cin >> respuesta;                                                              
             if ((respuesta == "si") || (respuesta == "Si")){                                    
-                std::cout << "\nPago realizado con la tarjeta guardada";                                                                                                          //
+                std::cout << "\nPago realizado con la tarjeta guardada\n";                                                                                                          //
                 break; 
             }
             else {                                                             
