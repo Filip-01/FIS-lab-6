@@ -25,6 +25,7 @@ class Pago {
 
     std::string Check_card();       // esta función detecta si hay una tarjeta asociada al usuario
     bool Add_card(std::string tarjeta_);
+    void Add_user();
 
     private:
     long numero;

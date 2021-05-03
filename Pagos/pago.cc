@@ -50,8 +50,9 @@ void Pago::Banco() {
               << " con exito\n";
 }
 
-std::string Pago::Check_card(){             
-    std::string comparation = "no_card_";  
+std::string Pago::Check_card(){  
+    bool found = false;           
+    std::string comparation = "no_card_";                        // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
     file_card_.open("file_card_.txt", std::fstream::in);
     if (file_card_.is_open())  {
         std::string card_linea;
@@ -59,8 +60,9 @@ std::string Pago::Check_card(){
         while (!file_card_.eof())  {
             std::getline(file_card_, card_linea,':');
             if (card_linea == nombre_)  {
+                found = true;
                 std::getline(file_card_,card_linea);
-                if (card_linea == comparation)  {          // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
+                if (card_linea == comparation)  {          
                     file_card_.close();
                     card_linea = "0";
                     return card_linea;
@@ -75,7 +77,9 @@ std::string Pago::Check_card(){
         }
 
         file_card_.close();
-        return card_linea;
+        if (found == false)
+            Add_user();
+        return card_linea="0";
     }
     else  {
         std::cout << "Error al comprobar fichero de usuarios y tarjetas.\n"; 
@@ -84,6 +88,17 @@ std::string Pago::Check_card(){
 
 bool Pago::Add_card(std::string tarjeta_){ //falta completar la funcion que introduce las tarjetas en el fichero
     
+}
+
+void Pago::Add_user() {
+    file_card_.open( "file_card_.txt", std::fstream::out | std::fstream::app);
+    if (file_card_.is_open())  {
+      file_card_ << nombre_ << ":" << "\n";
+      file_card_.close();
+    }
+    else  {
+      std::cout << "No se pudo abrir el fichero para introducir el nombre del usuario.\n";
+    }
 }
 
 void Pago::MenuPago() {
