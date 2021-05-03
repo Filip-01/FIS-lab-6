@@ -6,7 +6,7 @@ std::string Pago::Card() {
     do {
         std::cout << "Ingrese los 24 digitos de la tarjeta: \n";
         std::cin >> tarjeta_;
-        std::cout << "¿Es " << tarjeta_ << " tu numero de tarjeta? \n";
+        std::cout << "¿Es " << tarjeta_ << " su tarjeta? \n";
         std::cin >> respuesta;
     }
     while ((respuesta != "si") || (tarjeta_.size() != 24));
@@ -53,7 +53,7 @@ void Pago::Banco() {
 std::string Pago::Check_card(){  
     bool found = false;           
     std::string comparation = "no_card_";                        // no_card_ es un string que indica si el usuario tiene una tarjeta guardada o no
-    file_card_.open("file_card_.txt", std::fstream::in);
+    file_card_.open("../Pagos/file_card_.txt", std::fstream::in);
     if (file_card_.is_open())  {
         std::string card_linea;
 
@@ -87,13 +87,39 @@ std::string Pago::Check_card(){
 }
 
 bool Pago::Add_card(std::string tarjeta_){ //falta completar la funcion que introduce las tarjetas en el fichero
-    
+    std::string temp_string;
+    file_card_.open("../Pagos/file_card_.txt", std::fstream::in);
+    std::fstream temp_file;
+    temp_file.open("Change.txt", std::fstream::out);
+    if (file_card_.is_open() && temp_file.is_open())  {
+        while (!file_card_.eof()) {
+            std::getline(file_card_,temp_string, ':');
+            if (temp_string == nombre_)  {
+                temp_file << temp_string << ":" << tarjeta_;
+                std::getline(file_card_,temp_string);
+                if (!file_card_.eof())
+                    temp_file << "\n";
+            }
+            else {
+                temp_file << temp_string << ":";
+                std::getline(file_card_,temp_string);
+                temp_file << temp_string;
+                if (!file_card_.eof())
+                    temp_file << "\n";
+            }
+        }
+    }
+    file_card_.close();
+    remove("../Pagos/file_card_.txt");
+    temp_file.close();
+    rename("Change.txt", "../Pagos/file_card_.txt");
+
 }
 
 void Pago::Add_user() {
-    file_card_.open( "file_card_.txt", std::fstream::out | std::fstream::app);
+    file_card_.open( "../Pagos/file_card_.txt", std::fstream::out | std::fstream::app);
     if (file_card_.is_open())  {
-      file_card_ << nombre_ << ":no_card_" << "\n";
+      file_card_ << "\n" << nombre_ << ":no_card_";
       file_card_.close();
     }
     else  {
@@ -130,10 +156,11 @@ void Pago::MenuPago() {
         }                                                                                       
         else                                                                                                                             
             numero = Card();
-            std::cout << "¿Desea guardar su tarjeta?";                                          
+            std::cout << "¿Desea guardar su tarjeta?\n";                                          
             std::cin >> respuesta;                                                              
             if ((respuesta == "si") || (respuesta == "Si")){                                    
-                Add_card(numero);                                                                     
+                Add_card(numero);   
+                std::cout << "Pago realizado con la tarjeta\n";                                                                  
                 break;                                                                           
             }                                                                                   
             else  {    
