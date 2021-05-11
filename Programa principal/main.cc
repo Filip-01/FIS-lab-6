@@ -55,8 +55,10 @@ void logmenuOptions() {
             case 2:
                 if (userLogin())
                     mainmenuOptions(); 
-                else
+                else {
                     std::cout << "Has sobrepasado el número de intentos de poner la contraseña.\n";
+                }
+                    
             break; 
         
             case 3: 
