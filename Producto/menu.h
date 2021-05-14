@@ -9,7 +9,7 @@
  * 3. Menu de acciones de productos
  *  3.1 Añadir al carrito
  *  3.2 elegir otro producto, "I change my mind"
- * 
+ *        ACTUALMENTE TRABAJANDO EN ESTE ARCHIVO: SAÚL, JORGE_G, 
  */
 
 #include "producto.h"

@@ -1,0 +1,5 @@
+// FORMATO
+//ID : Tipo : Nombre : Precio
+//ID : Tipo : Nombre : Precio
+//ID : Tipo : Nombre : Precio
+//ID : Tipo : Nombre : Precio
