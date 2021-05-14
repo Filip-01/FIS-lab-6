@@ -53,9 +53,12 @@ void logmenuOptions() {
             break;
 
             case 2:
-                if (userLogin()) {
+                if (userLogin())
                     mainmenuOptions(); 
+                else {
+                    std::cout << "Has sobrepasado el número de intentos de poner la contraseña.\n";
                 }
+                    
             break; 
         
             case 3: 
@@ -163,20 +166,24 @@ bool userLogin() {
     std::cout << "Introduce un nombre de usuario: " << std::endl;
     std::cin >> name;
     user.SetName(name);
+    int contador = 0;
 
-    std::cout << "Introduce una contraseña: " << std::endl;
-    std::cin >> passwd;
-    user.SetPasswd(passwd);
-                
-    if (user.CheckUser(name) && user.CheckPasswd(passwd)) {
-        separation();
-        std::cout << "¡Login correcto!" << std::endl;
-        return true;
-    }
-    else {
-        std::cout << "Login incorrecto." << std::endl;  
-        return false;   
-    }     
+    do  {
+        std::cout << "Introduce una contraseña: " << std::endl;
+        std::cin >> passwd;
+        user.SetPasswd(passwd);
+
+        if (user.CheckUser(name) && user.CheckPasswd(passwd)) {
+            separation();
+            std::cout << "¡Login correcto!" << std::endl;
+            return true;
+        }
+        else {
+            std::cout << "Login incorrecto." << std::endl;   
+            contador++;
+        }     
+    } while(contador < 3);
+    return false;
 }
 
 
