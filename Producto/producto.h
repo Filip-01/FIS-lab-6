@@ -7,6 +7,7 @@
  */
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 #define IDLENGHT 10
 
 // categorias
@@ -24,12 +25,15 @@ class producto {
     std::string name_ = "Default";
     unsigned category_ = 0;
     float price_ = -1;
+    bool available_;
+    std::fstream product_list_;
   public:
     int create(std::string name, unsigned category, float price);
     std::string get_name() { return name_; }
     unsigned get_category() { return category_; }
     float get_price() { return price_; }
     unsigned get_id() { return id_; }
+    bool get_available() { return available_; }
     void print();
 };
 
