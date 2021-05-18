@@ -29,7 +29,12 @@ class producto {
     std::fstream product_list_;
   public:
     producto()  {}
-    producto(const producto& prod)  {}
+    /* ************************************************************************************
+    * Necesario para devolver objetos producto.
+    * Posiblemente hay que rellenar para que haga una copia (probar antes codigo con create)
+    * Es posible que return create de Búsqueda_id no funcione bien, que devuelva algo vacío.
+    * ************************************************************************************/
+    producto(const producto& prod)  {}  
     ~producto()  {}
     producto& create(std::string name, unsigned category, float price);
     std::string get_name() { return name_; }
@@ -41,6 +46,8 @@ class producto {
     producto Busqueda_id(unsigned id = 0);
 };
 
+
+// Yo usaría esto en el constructor, pasandole al constructor los parametros name, category, price.
 producto& producto::create(std::string name, unsigned category, float price) {
   name_ = name;
   category_ = category; 
