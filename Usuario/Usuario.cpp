@@ -104,6 +104,10 @@ Usuario::AddPasswd()  {
 
 void
 Usuario::WriteName(std::string new_name)  {
+  if (file_name_.is_open())
+    file_name_.close();
+  if (file_passwd_.is_open())
+    file_passwd_.close();
   std::string name;
   file_name_.open("../Usuario/Usuarios.txt", std::fstream::in);
   std::fstream temp_file;
@@ -155,6 +159,8 @@ Usuario::WriteName(std::string new_name)  {
 // La estructura en el fichero será del nombre del usuario seguido de un espacio y la contraseña en cada línea.
 void
 Usuario::WritePasswd(std::string new_passwd)  {
+  if (file_passwd_.is_open())
+    file_passwd_.close();
   std::string passwd;
   file_passwd_.open("../Usuario/Passwords.txt", std::fstream::in);
   std::fstream temp_file;
