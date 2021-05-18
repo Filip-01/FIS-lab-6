@@ -28,26 +28,30 @@ class producto {
     bool available_;
     std::fstream product_list_;
   public:
-    int create(std::string name, unsigned category, float price);
+    producto& create(std::string name, unsigned category, float price);
     std::string get_name() { return name_; }
     unsigned get_category() { return category_; }
     float get_price() { return price_; }
     unsigned get_id() { return id_; }
     bool get_available() { return available_; }
     void print();
+    producto Busqueda_id(unsigned id = 0);
 };
 
-int producto::create(std::string name, unsigned category, float price) {
+producto& producto::create(std::string name, unsigned category, float price) {
   name_ = name;
   category_ = category_; 
   price_ = price;
+  int aux = 0;
 
   int seed = (stoi(name_) + category_);
   srand(seed);
   for(unsigned i = 1; i < IDLENGHT; i++) {
-    rand();
+    aux += rand() % 10;
+    aux *= 10;
   }
-  id_ = rand();
+  id_ = aux;
+  return *this;
 }
 
 void producto::print() {
