@@ -28,6 +28,9 @@ class producto {
     bool available_;
     std::fstream product_list_;
   public:
+    producto()  {}
+    producto(const producto& prod)  {}
+    ~producto()  {}
     producto& create(std::string name, unsigned category, float price);
     std::string get_name() { return name_; }
     unsigned get_category() { return category_; }
@@ -40,7 +43,7 @@ class producto {
 
 producto& producto::create(std::string name, unsigned category, float price) {
   name_ = name;
-  category_ = category_; 
+  category_ = category; 
   price_ = price;
   int aux = 0;
 
