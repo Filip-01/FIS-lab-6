@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-#define IDLENGHT 10
+#include <cmath>
+#define IDLENGHT 5
 
 // categorias
 #define C_SPORT 1
@@ -19,6 +20,10 @@
 #define C_OTHER 6
 #define C_NONE 0
 
+int countDigit(unsigned n) {
+  return floor(log10(n) + 1);
+}
+
 class producto {
   protected:
     unsigned id_ = C_NONE;
@@ -26,7 +31,6 @@ class producto {
     unsigned category_ = 0;
     float price_ = -1;
     bool available_;
-    std::fstream product_list_;
   public:
     producto()  {}
     /* ************************************************************************************
@@ -53,13 +57,17 @@ producto& producto::create(std::string name, unsigned category, float price) {
   category_ = category; 
   price_ = price;
   int aux = 0;
-
-  int seed = (stoi(name_) + category_);
+  int seed = (atoi(name_.c_str()) + category_);
   srand(seed);
-  for(unsigned i = 1; i < IDLENGHT; i++) {
+  for(unsigned i = 0; i < IDLENGHT; i++) {
     aux += rand() % 10;
     aux *= 10;
   }
+
+  if(countDigit(aux) > IDLENGHT) {
+    aux /= 10;
+  }
+
   id_ = aux;
   return *this;
 }
@@ -102,5 +110,5 @@ void producto::print() {
       std::cout << "ERROR";
       break;
   }
-  std::cout << "\nPrecio: " << price_ << "\n";
+  std::cout << "\nPrecio: " << price_ << "$\n";
 }
