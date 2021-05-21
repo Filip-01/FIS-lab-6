@@ -2,12 +2,14 @@
 #include "iostream"
 #include <stdio.h>
 #include <string.h> 
+#include <vector>
+#include "../Producto/producto.h"
 using namespace std;
 
 // VARIABLES GLOBALES
 int opc; //opcion del usuario del articulo que quiere comprar
 float sumaTotal;
-float listaPrecios[] = { 50 , 10 , 80 , 0 };
+std::vector<producto> carrito;
 string cupon = "fis"; // CODIGO DEL CUPON
 string cuponUser; // LO QUE EL USUARIO DIGITE
  
