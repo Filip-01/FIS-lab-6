@@ -1,7 +1,3 @@
-// FORMATO
-//ID:Tipo:Nombre:Precio
-//ID:Tipo:Nombre:Precio
-//ID:Tipo:Nombre:Precio
-//ID:Tipo:Nombre:Precio
-36750:1:Prueba:10.5
-98510:2:Pablo:0.5
+17261:2:Javi:0.1
+27203:4:Berse:5.3
+25838:5:Puke:1.5

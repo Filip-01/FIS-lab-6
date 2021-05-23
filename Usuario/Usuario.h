@@ -27,8 +27,8 @@ class Usuario  {
   std::string GetName() {return nombre_;}
 
  private:
- std::string nombre_;
- std::string passwd_;
- std::fstream file_name_;
- std::fstream file_passwd_;
+  std::string nombre_;
+  std::string passwd_;
+  std::fstream file_name_;
+  std::fstream file_passwd_;
 };

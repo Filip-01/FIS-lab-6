@@ -68,7 +68,7 @@ std::vector<producto> Busqueda(std::string product_name = "No_product_name", uns
       std::getline(product_list, product_line, ':');
       std::getline(product_list, product_line, ':');
       if (product_line != "") {
-        category = std::stoi(product_line);
+        category = atoi(product_line.c_str());
       }
       std::getline(product_list, product_line, ':');
       if (product_line != "") {
@@ -76,7 +76,7 @@ std::vector<producto> Busqueda(std::string product_name = "No_product_name", uns
       }
       std::getline(product_list, product_line);
       if (product_line != "") {
-        price = std::stof(product_line);
+        price = atof(product_line.c_str());
       }
       product_list.close();
 

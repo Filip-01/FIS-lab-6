@@ -1,8 +1,10 @@
 //Función menú que muestra REQUESITOS 
 //Por Jorge Hernández Toledo. El que no sabe programar
-//Compilación g++ -w -o main main.cc ../Usuario/Usuario.cpp ../Pagos/pago.cc
+//Compilación  
+//g++ -w -o main main.cc ../Usuario/Usuario.cpp ../Pagos/pago.cc 
 
 #include <iostream>
+#include "../Producto/menu.h"
 #include "../Usuario/Usuario.h"
 #include "../Pagos/pago.h"
 
@@ -17,7 +19,7 @@ void separation();
 void userRegister();
 bool userLogin();
 void GestPerfil();
-
+void MostrarPago(std::vector<producto> vector);
 
 int main() {
     std::cout << "\nBienvenido a PapaGayo Store" << std::endl;
@@ -94,25 +96,110 @@ int mainMenu() {
 void mainmenuOptions() {  // podria recibir la variable nombre para poder inicializarla en la clase pago
     int option = 0;
     pagar.SetNombre(user.GetName());
+    std::vector<producto> lista(0);
+    std::vector<producto> carrito(0);
     while (option != 6) {
         option = mainMenu();
         switch (option) {
             case 1: 
                 separation();
+                lista = menu_busqueda();
+                print(lista);
             break;
 
-            case 2:
+            case 2:  {
                 separation();
-            break;
-                
+                producto producto1;
+                unsigned category = 0;
+                float price = 0.0;
+                std::string nombre = ".";
+                std::cout << "Escriba el nombre del producto: ";
+                std::cin >> nombre;
+                std::cout << "1. Deportes.\n"
+                          << "2. Hogar.\n"
+                          << "3. Ropa.\n"
+                          << "4. Coches.\n"
+                          << "5. Tecnología.\n"
+                          << "6. Otras.\n"
+                          << "0. Ninguna.\n"
+                          << "Escriba la categoría del producto (Número):\n";
+                std::cin >> category;
+                do {
+                  std::cout << "Escriba el precio: ";
+                  std::cin >> price;
+                  if (price < 0.0)
+                    std::cout << "El precio no puede ser negativo.\n";
+                } while (price < 0.0);
+                producto1.create(nombre, category, price);
+                producto1.AddProduct();
+             break;
+            }   
             case 3:
                 separation();
+                MostrarPago(carrito);
                 pagar.MenuPago();
                 //separation();
             break;
 
             case 4:
                 separation();
+                int opcion;
+                if (lista.size() == 0)
+                  std::cout << "No se ha buscado ningún producto.\n";
+                else  {
+                  std::cout << "Objetos a escoger (añadidas en la búsqueda):\n";
+                  print(lista);
+                  do {
+                    std::cout << "[0] Añadir objeto.\n"
+                            << "[1] Eliminar objeto.\n"
+                            << "[2] Ver carrito.\n"
+                            << "[3] Ver lista de objetos buscados.\n"
+                            << "[4] Eliminar productos repetidos.\n"
+                            << "[5] Salir (se guardará el carrito)\n"
+                            << "Elija una opción: ";
+                    std::cin >> opcion;
+                    switch (opcion)  {
+                      case 0: {
+                        int objeto;
+                        std::cout << "Elija un objeto (número) de la lista para añadir al carrito: ";
+                        std::cin >> objeto;
+                        objeto--;
+                        if (objeto < lista.size() && objeto >= 0)
+                          carrito.push_back(lista[objeto]);
+                        else
+                          std::cout << "Escoja un producto que esté en la lista.\n";
+                        break;
+                      }
+                      case 1: {
+                        int objeto;
+                        std::cout << "Elija un objeto (número) de la lista para eliminar del carrito: ";
+                        std::cin >> objeto;
+                        if (objeto >= carrito.size() && objeto < 0)
+                          std::cout << "No está en el carrito.\n";
+                        else
+                          EliminaProduct(carrito, objeto);
+                        break;
+                      }
+                      case 2: {
+                        print(carrito);
+                        break;
+                      }
+                      case 3: {
+                        print(lista);
+                        break;
+                      }
+                      case 4: {
+                        BorraRepetedProduct(carrito);
+                        break;
+                      }
+                      case 5:
+                        break;
+                      default:
+                        std::cout << "Elija una opción válida.\n";
+                        break;
+                    }
+                  } while (opcion != 5);
+                }
             break;
 
             case 5:
@@ -264,4 +351,12 @@ void GestPerfil()  {
   
 
 
+}
+
+void MostrarPago(std::vector<producto> vector)  {
+  float total = 0;
+  for (unsigned i = 0; i < vector.size(); i++)
+    total += vector[i].get_price();
+  
+  std::cout << "Precio total del carrito: " << total << "\n";
 }
