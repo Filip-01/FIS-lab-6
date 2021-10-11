@@ -1,7 +1,7 @@
 /*********************************
  * Clase Pago, que tiene los métodos relacionados con los pagos
  * y las características del mismo.
- * prueba xd
+ * 
  **********************************/
 
 #include <iostream>
